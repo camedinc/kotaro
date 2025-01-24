@@ -1,0 +1,5 @@
+numpy==2.2.2
+pandas==2.2.3
+pytest==7.4.0
+scikit_learn==1.2.2
+setuptools==68.2.2
