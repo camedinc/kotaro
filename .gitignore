@@ -1,8 +1,5 @@
 .pytest_cache/
-data/
-documents/
 kotaro.egg-info/
-tests/
 __pycache__/
 .DS_Store
 .vscode/
