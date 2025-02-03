@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 import numpy as np
 import sys
 import os
@@ -7,7 +8,7 @@ import os
 print("Ruta actual:", os.getcwd())
 
 # Ruta absoluta del directorio base y sube un nivel ".."
-base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "."))
 print("Ruta absoluta (base_dir)", base_dir)
 
 # Agregar el directorio base al PYTHONPATH
@@ -16,6 +17,10 @@ sys.path.append(base_dir)
 # Ruta al archivo de datos relativo al directorio base
 file_path = os.path.join(base_dir, "data", "employee_attrition_dataset.csv")
 print(f"Ruta absoluta al archivo (file_path): {file_path}")
+
+# Ruta al directorio de gráficas
+path_graficas = os.path.join(base_dir, "graficas")
+print(f"Ruta absoluta al directorio gráficas: {path_graficas}")
 
 # Leer el archivo CSV
 df = pd.read_csv(file_path)
@@ -70,3 +75,21 @@ print(df_standard)
 # Aplica variables dummies para categóricas ohe
 df_ohe = data.apply_one_hot_encoding()
 print(df_ohe)
+
+# Prueba de funciones gráficas
+# Importar la clase DataCleaner
+from kotaro import DataExplorer
+numeric_cols = ["Monthly_Income", 
+                "Years_at_Company", 
+                "Years_in_Current_Role", 
+                "Years_Since_Last_Promotion", 
+                "Training_Hours_Last_Year",
+                "Job_Involvement", 
+                "Distance_From_Home", 
+                "Age"]
+
+# Instancia
+plot = DataExplorer(df=df_ohe, numeric_cols=numeric_cols)
+fig, axes = plot.plot_graphics(plot_type="Histogram")
+fig.savefig(os.path.join(path_graficas, 'histogramas.png'), dpi = 300, bbox_inches='tight')
+plt.show()
